@@ -1,1 +1,1 @@
-# video-segmentation-and-classification
+# Video Segmentation and classification
