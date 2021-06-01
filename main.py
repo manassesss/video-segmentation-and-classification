@@ -20,35 +20,38 @@ filter = f()
 
 while (True):
     ret, frame = cap.read()
-    
+    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     # Applying the subtractor and separetin background and foreground
     mask = subtractor2.apply(frame)
-    hei, wid, o = frame.shape
+    mask11 = subtractor1.apply(frame)
+    cv2.imshow("mask", mask)
+    cv2.imshow("mask2", mask11)
+    hei, wid = frame.shape
     # Taking the countours of the objects and drawning them on the frame
     mask1 = mask.copy()
-    mask1 = f.dilating(image=mask1)
-    mask1 = f.eroding(image=mask1)
-    c = contours(mask)
+    mask1 = filter.dilating(mask1)
+    mask1 = filter.eroding(mask1)
+    c = contours(mask1)
     for i in range(len(c)):
         area = cv2.contourArea(c[i])
         areaImage = wid*hei
         if area > (areaImage*0.001):
-            cv2.drawContours(mask, c, i, (255,255,255), cv2.FILLED)
+            cv2.drawContours(mask1, c, i, (255,255,255), cv2.FILLED)
     
     # Drawning a rectangule around the object
-    mask2 = mask.copy()
+    mask2 = mask1.copy()
     c = contours(mask2)
     for contour in c:
         (x, y, w, h) = cv2.boundingRect(contour)
         if cv2.contourArea(contour) < 700:
             continue
         cv2.rectangle(frame, (x,y), (x+w, y+h), (0,0,0), 3)
-    print(hei, wid)
-    # Display the resulting frame    
-    cv2.imshow('frame', frame)
- 
+
+    # Display the resulting frame
+    cv2.imshow("calssified", frame)  
+    cv2.waitKey(20)
     # Press Q on keyboard to stop recording
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-      break
     
-    break
+cap.release()
+cv2.destroyAllWindows()
+

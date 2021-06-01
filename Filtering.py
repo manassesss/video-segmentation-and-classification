@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-class Filtering ():
+class Filtering():
     
     KERNEL_OPENING = np.ones((3,3), np.uint8)
     KERNEL_CLOSING = np.ones((3,3), np.uint8)
