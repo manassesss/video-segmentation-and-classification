@@ -6,7 +6,7 @@ class Filtering():
     KERNEL_OPENING = np.ones((3,3), np.uint8)
     KERNEL_CLOSING = np.ones((3,3), np.uint8)
     KERNEL_DILATING = np.ones((3,3), np.uint8)
-    KERNEL_ERODING = np.ones((3,3), np.uint8)
+    KERNEL_ERODING = np.ones((2,2), np.uint8)
     
     
     def __init__(self):

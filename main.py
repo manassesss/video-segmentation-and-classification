@@ -4,7 +4,7 @@ from Filtering import Filtering as f
 
 
 def contours(frame):
-    contour, _ = cv2.findContours(frame, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    _,contour, _ = cv2.findContours(frame, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     return contour
 
 # Opening a video e checking if the video is valid
@@ -20,17 +20,21 @@ filter = f()
 
 while (True):
     ret, frame = cap.read()
-    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    frame2 = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    
     # Applying the subtractor and separetin background and foreground
-    mask = subtractor2.apply(frame)
-    mask11 = subtractor1.apply(frame)
+    mask = subtractor2.apply(frame2)
+    mask11 = subtractor1.apply(frame2)
+    rett, mask = cv2.threshold(mask,127,255,cv2.THRESH_BINARY)
     cv2.imshow("mask", mask)
-    cv2.imshow("mask2", mask11)
-    hei, wid = frame.shape
+    
+    hei, wid = frame2.shape
     # Taking the countours of the objects and drawning them on the frame
     mask1 = mask.copy()
-    mask1 = filter.dilating(mask1)
     mask1 = filter.eroding(mask1)
+    mask1 = filter.dilating(mask1)
+    
+    cv2.imshow("mask2", mask1)
     c = contours(mask1)
     for i in range(len(c)):
         area = cv2.contourArea(c[i])
@@ -38,6 +42,11 @@ while (True):
         if area > (areaImage*0.001):
             cv2.drawContours(mask1, c, i, (255,255,255), cv2.FILLED)
     
+    hull = []
+    
+    for i in range(len(c)):
+        hull.append(cv2.convexHull(c[i]), False)
+        
     # Drawning a rectangule around the object
     mask2 = mask1.copy()
     c = contours(mask2)
@@ -46,6 +55,7 @@ while (True):
         if cv2.contourArea(contour) < 700:
             continue
         cv2.rectangle(frame, (x,y), (x+w, y+h), (0,0,0), 3)
+        cv2.putText(frame,'object',(x,y), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2)
 
     # Display the resulting frame
     cv2.imshow("calssified", frame)  
