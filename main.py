@@ -1,14 +1,14 @@
 import cv2
 import numpy as np
-import Filtering as f
+from Filtering import Filtering as f
 
 
 def contours(frame):
-    _, contour, _ = cv2.findContours(frame, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    contour, _ = cv2.findContours(frame, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     return contour
 
 # Opening a video e checking if the video is valid
-cap = cv2.VideoCapture('strans/cam20.AVI')
+cap = cv2.VideoCapture('STRANS/cam20.AVI')
 if (cap.isOpened() == False): 
     print("Unable to read camera feed")
 
@@ -23,9 +23,12 @@ while (True):
     
     # Applying the subtractor and separetin background and foreground
     mask = subtractor2.apply(frame)
-    
+    hei, wid, o = frame.shape
     # Taking the countours of the objects and drawning them on the frame
-    c = contours(frame)
+    mask1 = mask.copy()
+    mask1 = f.dilating(image=mask1)
+    mask1 = f.eroding(image=mask1)
+    c = contours(mask)
     for i in range(len(c)):
         area = cv2.contourArea(c[i])
         areaImage = wid*hei
@@ -33,12 +36,14 @@ while (True):
             cv2.drawContours(mask, c, i, (255,255,255), cv2.FILLED)
     
     # Drawning a rectangule around the object
-    for contour in contours:
+    mask2 = mask.copy()
+    c = contours(mask2)
+    for contour in c:
         (x, y, w, h) = cv2.boundingRect(contour)
         if cv2.contourArea(contour) < 700:
             continue
         cv2.rectangle(frame, (x,y), (x+w, y+h), (0,0,0), 3)
-    
+    print(hei, wid)
     # Display the resulting frame    
     cv2.imshow('frame', frame)
  
