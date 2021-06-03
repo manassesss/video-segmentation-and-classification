@@ -13,3 +13,6 @@ The main pachake used in this works was [OpenCV](https://opencv.org/). OpenCV is
 To undestand more about OpenCv, you read the documentation [here](https://docs.opencv.org/)
 
 ## 🛠️ How to execute
+Now you can run this script in out terminal:
+* Windows: `python main.py`
+* Ubuntu: `python3 main.py`
