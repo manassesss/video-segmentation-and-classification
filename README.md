@@ -14,5 +14,7 @@ To undestand more about OpenCv, you read the documentation [here](https://docs.o
 
 ## 🛠️ How to execute
 Now you can run this script in out terminal:
-* Windows: `python main.py`
-* Ubuntu: `python3 main.py`
+* Windows: `python main.py path`
+* Ubuntu: `python3 main.py path`
+
+Path is the video you intend to work on.
