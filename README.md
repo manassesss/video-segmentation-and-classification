@@ -17,4 +17,6 @@ Now you can run this script in out terminal:
 * Windows: `python main.py path`
 * Ubuntu: `python3 main.py path`
 
-Path is the video you intend to work on.
+Path is the video you intend to work on. After used this command line your video will look like this example:
+
+<img src="https://static01.bbi.io/2Wt9Tk.gif"/>
