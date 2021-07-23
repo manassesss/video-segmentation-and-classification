@@ -78,8 +78,7 @@ while (True):
     # Display the resulting frame
     cv2.imshow("calssified", frame)  
     cv2.waitKey(50)
-    
-    # Press Q on keyboard to stop recording
+
 print('[INFO] Done!')
 cap.release()
 cv2.destroyAllWindows()
