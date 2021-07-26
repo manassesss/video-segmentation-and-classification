@@ -39,4 +39,4 @@ Path is the video you intend to work on. After used this command line your video
 
 ---
 
-Developed with 🖤 by Manassés Silva dos Santos
+Developed with 🖤 by [Manassés](https://github.com/manassesss/)
