@@ -2,3 +2,5 @@ __pycache__
 .vscode
 STRANS
 CARS
+Traffic-Signs
+test.py

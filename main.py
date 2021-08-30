@@ -76,7 +76,7 @@ while (True):
     frame_number += 1
     
     # Display the resulting frame
-    cv2.imshow("calssified", frame)  
+    cv2.imshow("classified", frame)  
     cv2.waitKey(50)
 
 print('[INFO] Done!')
