@@ -75,6 +75,8 @@ while (True):
         cv2.rectangle(frame, (x,y), (x+w, y+h), (255,0,0), 2)
         cv2.putText(frame,'object',(x,y), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),1)
     frame_number += 1
+    
+    #Defining the Region of Interest
     roi = r()
     roi.defineROI(frame)
     # Display the resulting frame
